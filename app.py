@@ -31,18 +31,21 @@ stock_symbol = st.sidebar.text_input(
 
 # Time period selection
 time_periods = {
+    "1 Day": "1d",
+    "1 Week": "1wk",
     "1 Month": "1mo",
     "3 Months": "3mo",
     "6 Months": "6mo",
     "1 Year": "1y",
     "2 Years": "2y",
-    "5 Years": "5y"
+    "5 Years": "5y",
+    "Max": "max"
 }
 
 selected_period = st.sidebar.selectbox(
     "Select Time Period:",
     options=list(time_periods.keys()),
-    index=3  # Default to 1 Year
+    index=2  # Default to 1 Month
 )
 
 # Chart type selection
