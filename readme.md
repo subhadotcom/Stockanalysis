@@ -72,4 +72,3 @@ The application is configured for deployment on Replit's autoscale infrastructur
 
 ### Deployment Commands
 - Primary: `streamlit run app.py --server.port 5000`
-- Dependencies: Automatically installed via `uv add yfinance plotly`
