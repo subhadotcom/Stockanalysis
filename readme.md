@@ -71,4 +71,4 @@ The application is configured for deployment on Replit's autoscale infrastructur
 - **Dependency Management**: Automated installation via uv package manager
 
 ### Deployment Commands
-- Primary: `streamlit run app.py --server.port 5000`
+- Primary: `streamlit run app.py --server.port 8501`
