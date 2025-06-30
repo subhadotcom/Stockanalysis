@@ -1,26 +1,26 @@
-import streamlit as st         # Imports Streamlit for building the web app UI
-import yfinance as yf          # Imports yfinance for fetching stock data from Yahoo Finance
-import pandas as pd            # Imports pandas for data manipulation and analysis
-import plotly.graph_objects as go  # Imports Plotly's graph objects for advanced charting
-import plotly.express as px        # Imports Plotly Express for quick charting (not used here)
-from plotly.subplots import make_subplots  # For combining multiple plots (not used here)
-import numpy as np             # Imports numpy for numerical operations
-from datetime import datetime, timedelta  # Imports datetime utilities for date/time handling
-import io                      # Imports io for in-memory file operations (used for CSV download)
+import streamlit as st                          # Imports Streamlit for building the web app UI
+import yfinance as yf                           # Imports yfinance for fetching stock data from Yahoo Finance
+import pandas as pd                             # Imports pandas for data manipulation and analysis
+import plotly.graph_objects as go               # Imports Plotly's graph objects for advanced charting
+import plotly.express as px                     # Imports Plotly Express for quick charting (not used here)
+from plotly.subplots import make_subplots       # For combining multiple plots (not used here)
+import numpy as np                              # Imports numpy for numerical operations
+from datetime import datetime, timedelta        # Imports datetime utilities for date/time handling
+import io                                       # Imports io for in-memory file operations (used for CSV download)
 
 # Set page configuration
 st.set_page_config(
-    page_title="Financial Data Analyzer",  # Sets the browser tab title
-    page_icon="📈",                        # Sets the browser tab icon
-    layout="wide"                          # Uses the full width of the browser window
+    page_title="Financial Data Analyzer",       # Sets the browser tab title
+    page_icon="📈",                             # Sets the browser tab icon
+    layout="wide"                               # Uses the full width of the browser window
 )
 
 # Title and description
-st.title("📈 Financial Data Analyzer")  # Displays the main title at the top of the app
+st.title("📈 Financial Data Analyzer")          # Displays the main title at the top of the app
 st.markdown("Enter a stock symbol to analyze financial data from Yahoo Finance")  # Adds a description below the title
 
 # Sidebar for user inputs
-st.sidebar.header("Stock Analysis Settings")  # Adds a header to the sidebar
+st.sidebar.header("Stock Analysis Settings")       # Adds a header to the sidebar
 
 # Stock symbol input
 stock_symbol = st.sidebar.text_input(
@@ -43,16 +43,16 @@ time_periods = {  # Dictionary mapping display names to yfinance codes
 }
 
 selected_period = st.sidebar.selectbox(
-    "Select Time Period:",           # Label for the dropdown
-    options=list(time_periods.keys()),  # List of options
+    "Select Time Period:",                  # Label for the dropdown
+    options=list(time_periods.keys()),      # List of options
     index=2  # Default to "1 Month"
 )
 
 # Chart type selection
 chart_type = st.sidebar.selectbox(
-    "Select Chart Type:",                # Label for the dropdown
-    options=["Line Chart", "Candlestick Chart"],  # Chart type options
-    index=0                             # Default to "Line Chart"
+    "Select Chart Type:",                           # Label for the dropdown
+    options=["Line Chart", "Candlestick Chart"],    # Chart type options
+    index=0                                         # Default to "Line Chart"
 )
 
 # Analyze button
@@ -61,14 +61,14 @@ analyze_button = st.sidebar.button("Analyze Stock", type="primary")  # Button to
 def get_stock_info(symbol):
     """Fetch stock information and historical data"""
     try:
-        ticker = yf.Ticker(symbol)  # Create a yfinance Ticker object for the symbol
-        info = ticker.info          # Fetch company info (dict)
-        period = time_periods[selected_period]  # Get the period code from the selected period
-        hist_data = ticker.history(period=period)  # Fetch historical price data
-        if hist_data.empty:         # If no data is returned
+        ticker = yf.Ticker(symbol)                      # Create a yfinance Ticker object for the symbol
+        info = ticker.info                              # Fetch company info (dict)
+        period = time_periods[selected_period]          # Get the period code from the selected period
+        hist_data = ticker.history(period=period)       # Fetch historical price data
+        if hist_data.empty:                             # If no data is returned
             return None, None, "No historical data found for this symbol"
-        return info, hist_data, None  # Return info, data, and no error
-    except Exception as e:          # If any error occurs
+        return info, hist_data, None                    # Return info, data, and no error
+    except Exception as e:                              # If any error occurs
         return None, None, f"Error fetching data: {str(e)}"  # Return error message
 
 def format_large_number(num):
@@ -122,10 +122,10 @@ def create_line_chart(hist_data, symbol):
     """Create an interactive line chart"""
     fig = go.Figure()  # Create a new Plotly figure
     fig.add_trace(go.Scatter(
-        x=hist_data.index,         # Dates on the x-axis
-        y=hist_data['Close'],      # Closing prices on the y-axis
-        mode='lines',              # Draw as a line
-        name='Close Price',        # Legend name
+        x=hist_data.index,                          # Dates on the x-axis
+        y=hist_data['Close'],                       # Closing prices on the y-axis
+        mode='lines',                               # Draw as a line
+        name='Close Price',                         # Legend name
         line=dict(color='#1f77b4', width=2),  # Line color and width
         hovertemplate='<b>Date</b>: %{x}<br><b>Price</b>: $%{y:.2f}<extra></extra>'  # Tooltip format
     ))
