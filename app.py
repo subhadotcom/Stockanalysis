@@ -135,7 +135,7 @@ def create_line_chart(hist_data, symbol):
         yaxis_title='Price ($)',                  # Y-axis label
         hovermode='x unified',                    # Unified hover
         showlegend=True,                          # Show legend
-        height=500                               # Chart height
+        height=500                                # Chart height
     )
     return fig  # Return the figure
 
@@ -233,21 +233,21 @@ if analyze_button or stock_symbol:  # If the user clicks "Analyze" or enters a s
                 price_fig = create_line_chart(hist_data, stock_symbol)  # Create line chart
             else:
                 price_fig = create_candlestick_chart(hist_data, stock_symbol)  # Create candlestick chart
-            st.plotly_chart(price_fig, use_container_width=True)  # Show price chart
-            volume_fig = create_volume_chart(hist_data, stock_symbol)  # Create volume chart
-            st.plotly_chart(volume_fig, use_container_width=True)  # Show volume chart
-            st.subheader("📋 Historical Data")  # Historical data section
-            st.write("Recent Historical Data (Last 10 Trading Days):")  # Section description
-            recent_data = hist_data.tail(10).round(2)  # Get last 10 rows
-            st.dataframe(recent_data, use_container_width=True)  # Show table
-            st.subheader("💾 Download Data")  # Download section
-            csv_data = prepare_csv_data(info, hist_data, stock_symbol)  # Prepare CSV
-            st.download_button(
-                label="📥 Download Complete Data as CSV",
-                data=csv_data,
-                file_name=f"{stock_symbol}_financial_data_{datetime.now().strftime('%Y%m%d')}.csv",
-                mime="text/csv",
-                help="Download all financial data and historical prices as CSV file"
+                st.plotly_chart(price_fig, use_container_width=True)  # Show price chart
+                volume_fig = create_volume_chart(hist_data, stock_symbol)  # Create volume chart
+                st.plotly_chart(volume_fig, use_container_width=True)  # Show volume chart
+                st.subheader("📋 Historical Data")  # Historical data section
+                st.write("Recent Historical Data (Last 10 Trading Days):")  # Section description
+                recent_data = hist_data.tail(10).round(2)  # Get last 10 rows
+                st.dataframe(recent_data, use_container_width=True)  # Show table
+                st.subheader("💾 Download Data")  # Download section
+                csv_data = prepare_csv_data(info, hist_data, stock_symbol)  # Prepare CSV
+                st.download_button(
+                    label="📥 Download Complete Data as CSV",
+                    data=csv_data,
+                    file_name=f"{stock_symbol}_financial_data_{datetime.now().strftime('%Y%m%d')}.csv",
+                    mime="text/csv",
+                    help="Download all financial data and historical prices as CSV file"
             )  # Download button
             with st.expander("📊 Additional Statistics"):  # Expandable section
                 col1, col2, col3 = st.columns(3)  # Three columns
