@@ -45,7 +45,7 @@ time_periods = {  # Dictionary mapping display names to yfinance codes
 selected_period = st.sidebar.selectbox(
     "Select Time Period:",                  # Label for the dropdown
     options=list(time_periods.keys()),      # List of options
-    index=2  # Default to "1 Month"
+    index=5                                 # Default to "1 Year"
 )
 
 # Chart type selection
